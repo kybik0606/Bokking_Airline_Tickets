@@ -1,10 +1,196 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Главная";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Герой секция -->
+<section class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">Путешествуйте с комфортом</h1>
+        <p class="lead mb-4">Найдите лучшие предложения на авиабилеты по всему миру</p>
+        <a href="#search" class="btn btn-primary btn-lg">Найти рейсы</a>
+    </div>
+</section>
+
+<!-- Форма поиска -->
+<section class="container mb-5" id="search">
+    <div class="search-form">
+        <form>
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-3">
+                    <label class="form-label">Откуда</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-plane-departure"></i></span>
+                        <input type="text" class="form-control" placeholder="Город вылета">
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <label class="form-label">Куда</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-plane-arrival"></i></span>
+                        <input type="text" class="form-control" placeholder="Город назначения">
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <label class="form-label">Туда</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <label class="form-label">Обратно</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-12 col-lg-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Найти билеты</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Популярные направления -->
+<section class="container mb-5">
+    <h2 class="section-title">Популярные направления</h2>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="destination-card card">
+                <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Париж" onerror="this.src='https://placehold.co/400x300/1a73e8/white?text=Париж'">
+                    <span class="offer-badge">-15%</span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Париж, Франция</h5>
+                    <p class="card-text">Отличные цены на рейсы в Париж</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="price-tag">от 12 490 ₽</span>
+                        <a href="#" class="btn btn-sm btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="destination-card card">
+                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Токио" onerror="this.src='https://placehold.co/400x300/1a73e8/white?text=Токио'">
+                <div class="card-body">
+                    <h5 class="card-title">Токио, Япония</h5>
+                    <p class="card-text">Откройте для себя культуру Японии</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="price-tag">от 24 990 ₽</span>
+                        <a href="#" class="btn btn-sm btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="destination-card card">
+                <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Нью-Йорк" onerror="this.src='https://placehold.co/400x300/1a73e8/white?text=Нью-Йорк'">
+                <div class="card-body">
+                    <h5 class="card-title">Нью-Йорк, США</h5>
+                    <p class="card-text">Город, который никогда не спит</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="price-tag">от 19 990 ₽</span>
+                        <a href="#" class="btn btn-sm btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="destination-card card">
+                <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Бали" onerror="this.src='https://placehold.co/400x300/1a73e8/white?text=Бали'">
+                    <span class="offer-badge">-20%</span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Бали, Индонезия</h5>
+                    <p class="card-text">Тропический рай для отдыха</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="price-tag">от 21 490 ₽</span>
+                        <a href="#" class="btn btn-sm btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Преимущества -->
+<section class="container mb-5">
+    <h2 class="section-title">Почему выбирают нас</h2>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="feature-card card">
+                <div class="card-body text-center p-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h5 class="card-title">Лучшие цены</h5>
+                    <p class="card-text">Гарантируем самые выгодные предложения на рынке авиабилетов</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="feature-card card">
+                <div class="card-body text-center p-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h5 class="card-title">Безопасность</h5>
+                    <p class="card-text">Ваши данные защищены с помощью современных технологий шифрования</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="feature-card card">
+                <div class="card-body text-center p-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h5 class="card-title">Поддержка 24/7</h5>
+                    <p class="card-text">Наша служба поддержки готова помочь вам в любое время суток</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="feature-card card">
+                <div class="card-body text-center p-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h5 class="card-title">Широкий выбор</h5>
+                    <p class="card-text">Самые актуальные направления по всему миру</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Отзывы -->
+<section class="container mb-5">
+    <h2 class="section-title">Отзывы клиентов</h2>
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="testimonial">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Мария">
+                    <div class="ms-3">
+                        <h5 class="mb-0">Мария Иванова</h5>
+                        <p class="mb-0">частый путешественник</p>
+                    </div>
+                </div>
+                <p class="mb-0">"Пользуюсь этим сервисом уже несколько лет. Всегда нахожу лучшие цены, а поддержка помогает решить любые вопросы."</p>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="testimonial">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Алексей">
+                    <div class="ms-3">
+                        <h5 class="mb-0">Алексей Петров</h5>
+                        <p class="mb-0">бизнес-путешественник</p>
+                    </div>
+                </div>
+                <p class="mb-0">"Удобный интерфейс, мгновенное подтверждение бронирования. Экономлю до 30% на командировках благодаря AeroBook."</p>
+            </div>
+        </div>
+    </div>
+</section>
