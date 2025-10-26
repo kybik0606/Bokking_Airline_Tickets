@@ -1,0 +1,168 @@
+﻿@page
+@model Bokking_Airline_Tickets.Pages.Admin.FlightsModel
+@{
+    ViewData["Title"] = "Управление рейсами";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Управление рейсами</h1>
+
+    <!-- Сообщения об успехе -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Форма добавления нового рейса -->
+    <div class="card mb-5">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Добавить новый рейс</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="NewFlight.DepartureCity" class="form-label">Откуда *</label>
+                        <input asp-for="NewFlight.DepartureCity" class="form-control" placeholder="Москва">
+                        <span asp-validation-for="NewFlight.DepartureCity" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="NewFlight.ArrivalCity" class="form-label">Куда *</label>
+                        <input asp-for="NewFlight.ArrivalCity" class="form-control" placeholder="Париж">
+                        <span asp-validation-for="NewFlight.ArrivalCity" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="NewFlight.DepartureDate" class="form-label">Дата вылета *</label>
+                        <input asp-for="NewFlight.DepartureDate" type="datetime-local" class="form-control">
+                        <span asp-validation-for="NewFlight.DepartureDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="NewFlight.Price" class="form-label">Цена (руб) *</label>
+                        <input asp-for="NewFlight.Price" class="form-control" placeholder="15000">
+                        <span asp-validation-for="NewFlight.Price" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="NewFlight.AvailableSeats" class="form-label">Количество мест *</label>
+                        <input asp-for="NewFlight.AvailableSeats" class="form-control" placeholder="180">
+                        <span asp-validation-for="NewFlight.AvailableSeats" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="NewFlight.Airline" class="form-label">Авиакомпания *</label>
+                        <input asp-for="NewFlight.Airline" class="form-control" placeholder="Аэрофлот">
+                        <span asp-validation-for="NewFlight.Airline" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="NewFlight.FlightDuration" class="form-label">Длительность полета (часы)</label>
+                        <input asp-for="NewFlight.FlightDuration" class="form-control" placeholder="4">
+                        <span asp-validation-for="NewFlight.FlightDuration" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success">Добавить рейс</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Таблица существующих рейсов -->
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Существующие рейсы</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Flights.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Откуда → Куда</th>
+                                <th>Дата вылета</th>
+                                <th>Цена</th>
+                                <th>Места</th>
+                                <th>Авиакомпания</th>
+                                <th>Длит.</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var flight in Model.Flights)
+                            {
+                                <tr>
+                                    <td>@flight.Id</td>
+                                    <td>
+                                        <strong>@flight.DepartureCity</strong> →
+                                        <strong>@flight.ArrivalCity</strong>
+                                    </td>
+                                    <td>@flight.DepartureDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                    <td><span class="badge bg-success">@flight.Price.ToString("N0") ₽</span></td>
+                                    <td>
+                                        <span class="badge @(flight.AvailableSeats > 0 ? "bg-info" : "bg-warning")">
+                                            @flight.AvailableSeats
+                                        </span>
+                                    </td>
+                                    <td>@flight.Airline</td>
+                                    <td>@flight.FlightDuration ч</td>
+                                    <td>
+                                        <span class="badge @(flight.IsActive ? "bg-success" : "bg-secondary")">
+                                            @(flight.IsActive ? "Активен" : "Неактивен")
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <form method="post" asp-page-handler="ToggleStatus" class="d-inline">
+                                                <input type="hidden" name="id" value="@flight.Id" />
+                                                <button type="submit" class="btn @(flight.IsActive ? "btn-warning" : "btn-success")">
+                                                    @(flight.IsActive ? "Деактив." : "Актив.")
+                                                </button>
+                                            </form>
+                                            <form method="post" asp-page-handler="Delete" class="d-inline"
+                                                  onsubmit="return confirm('Удалить рейс @flight.DepartureCity → @flight.ArrivalCity?')">
+                                                <input type="hidden" name="id" value="@flight.Id" />
+                                                <button type="submit" class="btn btn-danger">Удалить</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-4">
+                    <h4>Рейсы не найдены</h4>
+                    <p class="text-muted">Добавьте первый рейс используя форму выше</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        // Устанавливаем минимальную дату на завтра
+        document.addEventListener('DOMContentLoaded', function() {
+            var dateInput = document.querySelector('input[type="datetime-local"]');
+            var tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(12, 0, 0, 0);
+
+            var minDate = tomorrow.toISOString().slice(0, 16);
+            dateInput.min = minDate;
+
+            // Если поле пустое, устанавливаем значение по умолчанию
+            if (!dateInput.value) {
+                dateInput.value = minDate;
+            }
+        });
+    </script>
+}

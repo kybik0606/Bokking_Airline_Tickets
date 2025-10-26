@@ -1,0 +1,90 @@
+﻿@page
+@model Bokking_Airline_Tickets.Pages.Flights.IndexModel
+@{
+    ViewData["Title"] = "Поиск рейсов";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Поиск авиарейсов</h1>
+
+    <!-- Форма поиска -->
+    <div class="search-form">
+        <form method="get" asp-page="/Flights/Index">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-6 col-lg-2">
+                    <label class="form-label small mb-1">Откуда</label>
+                    <input type="text" class="form-control form-control-sm" name="departureCity" placeholder="Город вылета">
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <label class="form-label small mb-1">Куда</label>
+                    <input type="text" class="form-control form-control-sm" name="arrivalCity" placeholder="Город назначения">
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <label class="form-label small mb-1">Туда</label>
+                    <input type="date" class="form-control form-control-sm" name="departureDate">
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <label class="form-label small mb-1">Обратно</label>
+                    <input type="date" class="form-control form-control-sm" name="returnDate">
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <label class="form-label small mb-1">Пассажиры</label>
+                    <select class="form-select form-select-sm" name="passengers">
+                        <option value="1">1 пассажир</option>
+                        <option value="2">2 пассажира</option>
+                        <option value="3">3 пассажира</option>
+                        <option value="4">4 пассажира</option>
+                    </select>
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <button type="submit" class="btn btn-primary w-100 btn-sm">Найти</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Результаты поиска -->
+    @if (Model.Flights.Any())
+    {
+        <div class="row g-4">
+            @foreach (var flight in Model.Flights)
+            {
+                <div class="col-12">
+                    <div class="card destination-card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-3">
+                                    <h5 class="card-title">@flight.DepartureCity → @flight.ArrivalCity</h5>
+                                    <p class="text-muted mb-1">@flight.Airline</p>
+                                    <small class="text-muted">@flight.FlightDuration ч в пути</small>
+                                </div>
+                                <div class="col-md-2">
+                                    <p class="mb-1"><strong>Вылет</strong></p>
+                                    <p class="mb-0">@flight.DepartureDate.ToString("dd.MM.yyyy HH:mm")</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <p class="mb-1"><strong>Мест доступно</strong></p>
+                                    <p class="mb-0">@flight.AvailableSeats</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <span class="price-tag fs-4">@flight.Price.ToString("N0") ₽</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <a asp-page="/Booking/Create" asp-route-flightId="@flight.Id" class="btn btn-primary w-100">Выбрать</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <h3>Рейсы не найдены</h3>
+            <p class="text-muted">Попробуйте изменить параметры поиска</p>
+        </div>
+    }
+</div>
+

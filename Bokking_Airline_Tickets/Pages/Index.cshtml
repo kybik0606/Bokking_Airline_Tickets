@@ -9,45 +9,47 @@
     <div class="container text-center">
         <h1 class="display-4 fw-bold mb-4">Путешествуйте с комфортом</h1>
         <p class="lead mb-4">Найдите лучшие предложения на авиабилеты по всему миру</p>
-        <a href="#search" class="btn btn-primary btn-lg">Найти рейсы</a>
+        <a asp-page="/Flights/Index" class="btn btn-primary btn-lg">Найти рейсы</a>
     </div>
 </section>
 
 <!-- Форма поиска -->
 <section class="container mb-5" id="search">
     <div class="search-form">
-        <form>
-            <div class="row g-3">
-                <div class="col-md-6 col-lg-3">
-                    <label class="form-label">Откуда</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-plane-departure"></i></span>
-                        <input type="text" class="form-control" placeholder="Город вылета">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <label class="form-label">Куда</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-plane-arrival"></i></span>
-                        <input type="text" class="form-control" placeholder="Город назначения">
-                    </div>
+        <form method="get" asp-page="/Flights/Index">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-6 col-lg-2">
+                    <label class="form-label small mb-1">Откуда</label>
+                    <input type="text" class="form-control form-control-sm" name="departureCity" placeholder="Город вылета">
                 </div>
                 <div class="col-md-6 col-lg-2">
-                    <label class="form-label">Туда</label>
-                    <input type="date" class="form-control">
+                    <label class="form-label small mb-1">Куда</label>
+                    <input type="text" class="form-control form-control-sm" name="arrivalCity" placeholder="Город назначения">
                 </div>
                 <div class="col-md-6 col-lg-2">
-                    <label class="form-label">Обратно</label>
-                    <input type="date" class="form-control">
+                    <label class="form-label small mb-1">Туда</label>
+                    <input type="date" class="form-control form-control-sm" name="departureDate">
                 </div>
-                <div class="col-md-12 col-lg-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary w-100">Найти билеты</button>
+                <div class="col-md-6 col-lg-2">
+                    <label class="form-label small mb-1">Обратно</label>
+                    <input type="date" class="form-control form-control-sm" name="returnDate">
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <label class="form-label small mb-1">Пассажиры</label>
+                    <select class="form-select form-select-sm" name="passengers">
+                        <option value="1">1 пассажир</option>
+                        <option value="2">2 пассажира</option>
+                        <option value="3">3 пассажира</option>
+                        <option value="4">4 пассажира</option>
+                    </select>
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <button type="submit" class="btn btn-primary w-100 btn-sm">Найти</button>
                 </div>
             </div>
         </form>
     </div>
 </section>
-
 <!-- Популярные направления -->
 <section class="container mb-5">
     <h2 class="section-title">Популярные направления</h2>
