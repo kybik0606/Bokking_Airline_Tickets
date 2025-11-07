@@ -1,0 +1,313 @@
+﻿@page
+@model FAQModel
+@{
+    ViewData["Title"] = "Часто задаваемые вопросы";
+    Layout = "~/Pages/Shared/_InfoLayout.cshtml";
+}
+
+@section Breadcrumbs {
+    <li class="breadcrumb-item active" aria-current="page">FAQ</li>
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4">Часто задаваемые вопросы</h1>
+    <p class="lead">Здесь вы найдете ответы на самые популярные вопросы о бронировании авиабилетов</p>
+</div>
+
+<!-- Поиск по FAQ -->
+<div class="row justify-content-center mb-5">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="input-group">
+                    <span class="input-group-text bg-primary text-white">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" id="faqSearch" class="form-control" placeholder="Введите ваш вопрос...">
+                    <button class="btn btn-outline-secondary" type="button" id="clearSearch">Очистить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <!-- Бронирование и оплата -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="h5 mb-0">📅 Бронирование и оплата</h3>
+            </div>
+            <div class="card-body">
+                <div class="accordion" id="bookingAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#booking1">
+                                Как забронировать авиабилет?
+                            </button>
+                        </h2>
+                        <div id="booking1" class="accordion-collapse collapse show" data-bs-parent="#bookingAccordion">
+                            <div class="accordion-body">
+                                <ol>
+                                    <li>Выберите направление, даты и количество пассажиров на главной странице</li>
+                                    <li>Найдите подходящий рейс из списка доступных</li>
+                                    <li>Заполните данные пассажиров</li>
+                                    <li>Оплатите бронирование удобным способом</li>
+                                    <li>Получите электронный билет на email</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#booking2">
+                                Какие способы оплаты доступны?
+                            </button>
+                        </h2>
+                        <div id="booking2" class="accordion-collapse collapse" data-bs-parent="#bookingAccordion">
+                            <div class="accordion-body">
+                                Мы принимаем:
+                                <ul>
+                                    <li>💳 Банковские карты (Visa, MasterCard, Мир)</li>
+                                    <li>📱 Электронные кошельки (ЮMoney, Qiwi)</li>
+                                    <li>🏦 Интернет-банкинг</li>
+                                    <li>🍏 Apple Pay / Google Pay</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#booking3">
+                                Нужно ли распечатывать электронный билет?
+                            </button>
+                        </h2>
+                        <div id="booking3" class="accordion-collapse collapse" data-bs-parent="#bookingAccordion">
+                            <div class="accordion-body">
+                                Нет, электронный билет действителен в виде файла на вашем устройстве.
+                                Однако рекомендуем сохранить его офлайн-версию на случай отсутствия интернета.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Изменения и возвраты -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h3 class="h5 mb-0">🔄 Изменения и возвраты</h3>
+            </div>
+            <div class="card-body">
+                <div class="accordion" id="changesAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#changes1">
+                                Можно ли изменить дату вылета?
+                            </button>
+                        </h2>
+                        <div id="changes1" class="accordion-collapse collapse show" data-bs-parent="#changesAccordion">
+                            <div class="accordion-body">
+                                Да, изменение даты вылета возможно в соответствии с тарифом авиакомпании.
+                                Обычно это сопровождается оплатой сервисного сбора.
+                                Для изменений обратитесь в <a href="/Help/Support">службу поддержки</a>.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#changes2">
+                                Как вернуть билет?
+                            </button>
+                        </h2>
+                        <div id="changes2" class="accordion-collapse collapse" data-bs-parent="#changesAccordion">
+                            <div class="accordion-body">
+                                Возврат осуществляется согласно правилам тарифа авиакомпании:
+                                <ul>
+                                    <li>✅ Возвращаемые тарифы - полный или частичный возврат</li>
+                                    <li>❌ Невозвращаемые тарифы - возврат налогов и сборов</li>
+                                </ul>
+                                Подать заявку на возврат можно в личном кабинете.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#changes3">
+                                Сколько времени занимает обработка возврата?
+                            </button>
+                        </h2>
+                        <div id="changes3" class="accordion-collapse collapse" data-bs-parent="#changesAccordion">
+                            <div class="accordion-body">
+                                Обработка возврата занимает от 7 до 30 рабочих дней в зависимости от
+                                банка-эмитента вашей карты и авиакомпании.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Подготовка к полету -->
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h3 class="h5 mb-0">✈️ Подготовка к полету</h3>
+            </div>
+            <div class="card-body">
+                <div class="accordion" id="flightAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flight1">
+                                Когда нужно приехать в аэропорт?
+                            </button>
+                        </h2>
+                        <div id="flight1" class="accordion-collapse collapse show" data-bs-parent="#flightAccordion">
+                            <div class="accordion-body">
+                                Рекомендуем прибыть в аэропорт:
+                                <ul>
+                                    <li>🕒 За 2 часа - для внутренних рейсов</li>
+                                    <li>🕒 За 3 часа - для международных рейсов</li>
+                                </ul>
+                                В праздничные дни и период повышенной нагрузки время лучше увеличить.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flight2">
+                                Какие документы нужны для вылета?
+                            </button>
+                        </h2>
+                        <div id="flight2" class="accordion-collapse collapse" data-bs-parent="#flightAccordion">
+                            <div class="accordion-body">
+                                Для внутренних рейсов:
+                                <ul>
+                                    <li>📘 Паспорт гражданина РБ</li>
+                                    <li>📧 Электронный билет</li>
+                                </ul>
+                                Для международных рейсов:
+                                <ul>
+                                    <li>📒 Паспорт</li>
+                                    <li>📋 Виза (при необходимости)</li>
+                                    <li>📧 Электронный билет</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flight3">
+                                Можно ли провозить багаж бесплатно?
+                            </button>
+                        </h2>
+                        <div id="flight3" class="accordion-collapse collapse" data-bs-parent="#flightAccordion">
+                            <div class="accordion-body">
+                                Нормы бесплатного провоза багажа зависят от тарифа авиакомпании:
+                                <ul>
+                                    <li>🎒 Ручная кладь: обычно 5-10 кг</li>
+                                    <li>🧳 Зарегистрированный багаж: 20-30 кг в эконом-классе</li>
+                                </ul>
+                                Точные нормы указаны в вашем билете.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Не нашли ответ? -->
+        <div class="card border-primary">
+            <div class="card-body text-center">
+                <h3 class="h4 mb-3">Не нашли ответ на ваш вопрос?</h3>
+                <p class="mb-3">Наша служба поддержки всегда готова помочь вам</p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="/Help/Support" class="btn btn-primary">
+                        <i class="fas fa-headset me-2"></i>Написать в поддержку
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Поиск по FAQ
+        document.getElementById('faqSearch').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const accordionItems = document.querySelectorAll('.accordion-item');
+
+            accordionItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    // Автоматически открываем найденный элемент
+                    const button = item.querySelector('.accordion-button');
+                    if (button && button.classList.contains('collapsed')) {
+                        button.click();
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Очистка поиска
+        document.getElementById('clearSearch').addEventListener('click', function() {
+            document.getElementById('faqSearch').value = '';
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                item.style.display = 'block';
+            });
+        });
+
+        // Закрытие других аккордеонов при открытии нового
+        document.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const parentAccordion = this.closest('.accordion');
+                if (parentAccordion) {
+                    const allButtons = parentAccordion.querySelectorAll('.accordion-button');
+                    allButtons.forEach(btn => {
+                        if (btn !== this) {
+                            btn.classList.add('collapsed');
+                            const target = document.querySelector(btn.getAttribute('data-bs-target'));
+                            if (target) {
+                                target.classList.remove('show');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .accordion-button:not(.collapsed) {
+            background-color: #e3f2fd;
+            color: #0d6efd;
+            font-weight: 600;
+        }
+
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        .card {
+            transition: transform 0.2s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-2px);
+            }
+
+        .faq-category {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+        }
+    </style>
+}

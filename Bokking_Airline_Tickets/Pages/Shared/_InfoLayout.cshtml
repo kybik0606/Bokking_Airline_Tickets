@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "_Layout"; // Наследуем от основного layout
+}
+
+<!-- Хлебные крошки -->
+<nav aria-label="breadcrumb" class="bg-light py-2">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="~/">Главная</a></li>
+            @RenderSection("Breadcrumbs", required: false)
+        </ol>
+    </div>
+</nav>
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Боковое меню -->
+        <div class="col-lg-3 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Информация</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a asp-page="/About/Company" class="list-group-item list-group-item-action @(ViewContext.RouteData.Values["Page"]?.ToString() == "/About/Company" ? "active" : "")">
+                        О компании
+                    </a>
+                    <a asp-page="/About/Team" class="list-group-item list-group-item-action @(ViewContext.RouteData.Values["Page"]?.ToString() == "/About/Team" ? "active" : "")">
+                        Наша команда
+                    </a>
+                    <a asp-page="/Help/FAQ" class="list-group-item list-group-item-action @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Help/FAQ" ? "active" : "")">
+                        Частые вопросы
+                    </a>
+                    <a asp-page="/Help/Rules" class="list-group-item list-group-item-action @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Help/Rules" ? "active" : "")">
+                        Правила
+                    </a>
+                    <a asp-page="/Help/Support" class="list-group-item list-group-item-action @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Help/Support" ? "active" : "")">
+                        Поддержка
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="h3 mb-0">@ViewData["Title"]</h1>
+                </div>
+                <div class="card-body">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

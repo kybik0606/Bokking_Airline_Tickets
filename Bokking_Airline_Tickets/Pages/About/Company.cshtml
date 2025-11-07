@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "О компании AeroBook";
+    Layout = "~/Pages/Shared/_InfoLayout.cshtml";
+}
+
+@section Breadcrumbs {
+    <li class="breadcrumb-item active" aria-current="page">О компании</li>
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>Наша история</h2>
+        <p>AeroBook - это современная платформа для поиска и бронирования авиабилетов, основанная в 2025 году.</p>
+
+        <h3 class="mt-4">Наша миссия</h3>
+        <p>Сделать путешествия доступными и удобными для каждого.</p>
+
+        <h3 class="mt-4">Контакты</h3>
+        <ul>
+            <li>Email: info@aerobook.com</li>
+            <li>Телефон: +375(29)1234765</li>
+            <li>Адрес: г. Минск, ул. Авиационная, 15</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Факты о нас</h5>
+                <ul class="list-unstyled">
+                    <li>✅ 50,000+ довольных клиентов</li>
+                    <li>✅ 100+ направлений</li>
+                    <li>✅ Круглосуточная поддержка</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
