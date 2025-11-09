@@ -1,0 +1,115 @@
+﻿@page "{id:int}"
+@model Bokking_Airline_Tickets.Pages.Flights.DetailsModel
+@{
+    ViewData["Title"] = "Информация о рейсе";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+        <div class="card-header bg-primary text-white rounded-top-4 mb-4">
+            <h4 class="m-0 text-center">Информация о рейсе</h4>
+        </div>
+
+
+        <div class="mb-3">
+            <p class="text-muted mb-1">Авиакомпания</p>
+            <h5 class="fw-semibold">@Model.Flight.Airline</h5>
+        </div>
+
+
+        <div class="mb-3">
+            <p class="text-muted mb-1">Маршрут</p>
+            <h5 class="fw-semibold">@Model.Flight.DepartureCity → @Model.Flight.ArrivalCity</h5>
+        </div>
+
+
+        <div class="mb-3">
+            <p class="text-muted mb-1">Дата вылета</p>
+            <h6 class="fw-semibold">@Model.Flight.DepartureDate.ToString("dd.MM.yyyy HH:mm")</h6>
+        </div>
+
+
+        <div class="mb-3">
+            <p class="text-muted mb-1">Длительность полета</p>
+            <h6 class="fw-semibold">@Model.Flight.FlightDuration ч</h6>
+        </div>
+
+
+        <div class="mb-3">
+            <p class="text-muted mb-1">Оставшиеся места</p>
+            <h6 class="fw-semibold">@Model.Flight.AvailableSeats</h6>
+        </div>
+
+
+        <div class="mb-3 d-flex align-items-center">
+            <label class="form-check-label me-2 fw-semibold" for="baggageToggle">Доп. багаж (+1000 ₽)</label>
+            <input class="form-check-input" type="checkbox" id="baggageToggle">
+        </div>
+
+
+        <div class="text-center mt-4 p-3 bg-light rounded-3">
+            <h4 class="text-success mb-3">
+                <span id="price">@Model.Flight.Price.ToString("N0")</span> ₽
+            </h4>
+            <a asp-page="/Flights/Buy" asp-route-id="@Model.Flight.Id" id="buyButton" class="btn btn-success btn-lg px-5">
+                Купить билет
+            </a>
+        </div>
+
+
+        <div class="mt-4 text-center">
+            <a href="/Flights/Index" class="btn btn-outline-secondary">Назад к поиску</a>
+        </div>
+    </div>
+
+
+    <div class="mt-5">
+        <h4 class="mb-3 text-center">@Model.ArrivalCityInfo.Name</h4>
+        <p class="text-center mb-4">@Model.ArrivalCityInfo.Description</p>
+
+        <div id="cityCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @for (int i = 0; i < Model.ArrivalCityInfo.Images.Count; i++)
+                {
+                    var img = Model.ArrivalCityInfo.Images[i];
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <img src="@img" class="d-block w-100 rounded-3 shadow-sm" alt="@Model.ArrivalCityInfo.Name">
+                    </div>
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#cityCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Назад</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#cityCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Вперед</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const basePrice = @Model.Flight.Price.ToString("F0", System.Globalization.CultureInfo.InvariantCulture);
+        const priceElement = document.getElementById('price');
+        const baggageToggle = document.getElementById('baggageToggle');
+        const buyButton = document.getElementById('buyButton');
+
+        baggageToggle.addEventListener('change', function() {
+            let newPrice = parseFloat(basePrice);
+            if (baggageToggle.checked) {
+                newPrice += 1000;
+            }
+            priceElement.textContent = newPrice.toLocaleString('ru-RU');
+
+            const url = new URL(buyButton.href, window.location.origin);
+            if (baggageToggle.checked) {
+                url.searchParams.set('baggage', 'true');
+            } else {
+                url.searchParams.delete('baggage');
+            }
+            buyButton.href = url.toString();
+        });
+    </script>
+}

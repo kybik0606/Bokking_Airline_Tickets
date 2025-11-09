@@ -1,5 +1,5 @@
 ﻿@page
-@model IndexModel
+@model Bokking_Airline_Tickets.Pages.IndexModel
 @{
     ViewData["Title"] = "Главная";
 }
@@ -50,64 +50,106 @@
         </form>
     </div>
 </section>
+
 <!-- Популярные направления -->
 <section class="container mb-5">
     <h2 class="section-title">Популярные направления</h2>
     <div class="row g-4">
+        <!-- Париж -->
         <div class="col-md-6 col-lg-3">
             <div class="destination-card card">
-                <div class="position-relative">
-                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Париж" onerror="this.src='https://placehold.co/400x300/1a73e8/white?text=Париж'">
-                    <span class="offer-badge">-15%</span>
-                </div>
+                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Париж">
                 <div class="card-body">
                     <h5 class="card-title">Париж, Франция</h5>
                     <p class="card-text">Отличные цены на рейсы в Париж</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="price-tag">от 12 490 ₽</span>
-                        <a href="#" class="btn btn-sm btn-primary">Подробнее</a>
+                        @{
+                            var flightParis = Model.GetFlightByRoute("Москва", "Париж");
+                            if (flightParis != null)
+                            {
+                                <a asp-page="/Flights/Details" asp-route-id="@flightParis.Id" class="btn btn-sm btn-primary">Подробнее</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted small">Рейс пока не доступен</span>
+                            }
+                        }
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Токио -->
         <div class="col-md-6 col-lg-3">
             <div class="destination-card card">
-                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Токио" onerror="this.src='https://placehold.co/400x300/1a73e8/white?text=Токио'">
+                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Токио">
                 <div class="card-body">
                     <h5 class="card-title">Токио, Япония</h5>
                     <p class="card-text">Откройте для себя культуру Японии</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="price-tag">от 24 990 ₽</span>
-                        <a href="#" class="btn btn-sm btn-primary">Подробнее</a>
+                        @{
+                            var flightTokyo = Model.GetFlightByRoute("Москва", "Токио");
+                            if (flightTokyo != null)
+                            {
+                                <a asp-page="/Flights/Details" asp-route-id="@flightTokyo.Id" class="btn btn-sm btn-primary">Подробнее</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted small">Рейс пока не доступен</span>
+                            }
+                        }
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Нью-Йорк -->
         <div class="col-md-6 col-lg-3">
             <div class="destination-card card">
-                <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Нью-Йорк" onerror="this.src='https://placehold.co/400x300/1a73e8/white?text=Нью-Йорк'">
+                <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Нью-Йорк">
                 <div class="card-body">
                     <h5 class="card-title">Нью-Йорк, США</h5>
                     <p class="card-text">Город, который никогда не спит</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="price-tag">от 19 990 ₽</span>
-                        <a href="#" class="btn btn-sm btn-primary">Подробнее</a>
+                        @{
+                            var flightNY = Model.GetFlightByRoute("Санкт-Петербург", "Нью-Йорк");
+                            if (flightNY != null)
+                            {
+                                <a asp-page="/Flights/Details" asp-route-id="@flightNY.Id" class="btn btn-sm btn-primary">Подробнее</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted small">Рейс пока не доступен</span>
+                            }
+                        }
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Бали -->
         <div class="col-md-6 col-lg-3">
             <div class="destination-card card">
-                <div class="position-relative">
-                    <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Бали" onerror="this.src='https://placehold.co/400x300/1a73e8/white?text=Бали'">
-                    <span class="offer-badge">-20%</span>
-                </div>
+                <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Бали">
                 <div class="card-body">
                     <h5 class="card-title">Бали, Индонезия</h5>
                     <p class="card-text">Тропический рай для отдыха</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="price-tag">от 21 490 ₽</span>
-                        <a href="#" class="btn btn-sm btn-primary">Подробнее</a>
+                        @{
+                            var flightBali = Model.GetFlightByRoute("Москва", "Бали");
+                            if (flightBali != null)
+                            {
+                                <a asp-page="/Flights/Details" asp-route-id="@flightBali.Id" class="btn btn-sm btn-primary">Подробнее</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted small">Рейс пока не доступен</span>
+                            }
+                        }
                     </div>
                 </div>
             </div>
