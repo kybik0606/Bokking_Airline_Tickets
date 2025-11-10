@@ -20,15 +20,28 @@ namespace Bokking_Airline_Tickets.Pages.Admin
         [BindProperty]
         public Flight NewFlight { get; set; } = new();
 
-        public async Task OnGetAsync()
+        // GET: проверка авторизации
+        public async Task<IActionResult> OnGetAsync()
         {
+            if (HttpContext.Session.GetString("IsAdmin") != "true")
+            {
+                return RedirectToPage("/Admin/Login");
+            }
+
             Flights = await _context.Flights
                 .OrderBy(f => f.Id)
                 .ToListAsync();
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (HttpContext.Session.GetString("IsAdmin") != "true")
+            {
+                return RedirectToPage("/Admin/Login");
+            }
+
             if (!ModelState.IsValid)
             {
                 Flights = await _context.Flights.ToListAsync();
@@ -52,6 +65,11 @@ namespace Bokking_Airline_Tickets.Pages.Admin
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
+            if (HttpContext.Session.GetString("IsAdmin") != "true")
+            {
+                return RedirectToPage("/Admin/Login");
+            }
+
             var flight = await _context.Flights.FindAsync(id);
             if (flight != null)
             {
@@ -65,6 +83,11 @@ namespace Bokking_Airline_Tickets.Pages.Admin
 
         public async Task<IActionResult> OnPostToggleStatusAsync(int id)
         {
+            if (HttpContext.Session.GetString("IsAdmin") != "true")
+            {
+                return RedirectToPage("/Admin/Login");
+            }
+
             var flight = await _context.Flights.FindAsync(id);
             if (flight != null)
             {

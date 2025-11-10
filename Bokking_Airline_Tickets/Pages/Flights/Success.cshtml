@@ -1,0 +1,43 @@
+﻿@page "{FlightId:int}"
+@model Bokking_Airline_Tickets.Pages.Flights.SuccessModel
+@{
+    ViewData["Title"] = "Покупка успешна";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4 p-4 text-center">
+        <h2 class="text-success mb-4">Покупка билета прошла успешно. </h2>
+
+        @if (Model.Flight != null)
+        {
+            <div class="mb-3">
+                <p class="text-muted mb-1">Авиакомпания</p>
+                <h5 class="fw-semibold">@Model.Flight.Airline</h5>
+            </div>
+
+            <div class="mb-3">
+                <p class="text-muted mb-1">Маршрут</p>
+                <h5 class="fw-semibold">@Model.Flight.DepartureCity → @Model.Flight.ArrivalCity</h5>
+            </div>
+
+            <div class="mb-3">
+                <p class="text-muted mb-1">Дата вылета</p>
+                <h6 class="fw-semibold">@Model.Flight.DepartureDate.ToString("dd.MM.yyyy HH:mm")</h6>
+            </div>
+
+            <div class="mb-3">
+                <p class="text-muted mb-1">Цена</p>
+                <h5 class="fw-semibold">@Model.Flight.Price.ToString("N0") ₽</h5>
+            </div>
+
+            <div class="mt-4">
+                <a asp-page="/Flights/Index" class="btn btn-primary btn-lg">Вернуться к поиску рейсов</a>
+            </div>
+        }
+        else
+        {
+            <p class="text-danger">Информация о рейсе не найдена.</p>
+        }
+    </div>
+</div>

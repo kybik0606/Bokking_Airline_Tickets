@@ -1,13 +1,77 @@
 ﻿@page "{id:int}"
 @model Bokking_Airline_Tickets.Pages.Flights.BuyModel
+@{
+    ViewData["Title"] = "Покупка билета";
+    Layout = "_Layout";
+}
 
-<div class="container mt-5 text-center">
+<div class="login-page">
+    <div class="overlay"></div>
 
-    <h2 class="mb-4">Покупка билета</h2>
+    <div class="login-container">
+        <div class="card shadow-lg p-4 rounded-4">
+            <h2 class="text-center mb-4">Покупка билета</h2>
 
-    <img src="/images/back.jpg" alt="Ваше фото" class="img-fluid rounded shadow" style="max-width: 300px;">
+            <form method="post">
 
-    <p class="mt-4 text-muted">Домой , Уолтер</p>
+                <h5 class="mb-3">Паспортные данные</h5>
 
-    <a href="/Flights/Index" class="btn btn-primary mt-3">Вернуться к поиску</a>
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label">ФИО</label>
+                    <input asp-for="FullName" class="form-control" placeholder="Введите ФИО латиница">
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="BirthDate" class="form-label">Дата рождения</label>
+                    <input asp-for="BirthDate" type="date" class="form-control">
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PassportSeries" class="form-label">Серия паспорта</label>
+                    <input asp-for="PassportSeries" class="form-control" placeholder="MC0000000">
+                    <span asp-validation-for="PassportSeries" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PassportNumber" class="form-label">Номер паспорта</label>
+                    <input asp-for="PassportNumber" class="form-control" placeholder="0000000H000PBQ">
+                    <span asp-validation-for="PassportNumber" class="text-danger"></span>
+                </div>
+
+                <hr class="my-4" />
+
+                <h5 class="mb-3">Оплата</h5>
+
+                <div class="mb-3">
+                    <label asp-for="CardNumber" class="form-label">Номер карты</label>
+                    <input asp-for="CardNumber" class="form-control" placeholder="0000 0000 0000 0000">
+                    <span asp-validation-for="CardNumber" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label asp-for="CardExpire" class="form-label">Срок действия</label>
+                        <input asp-for="CardExpire" class="form-control" placeholder="MM/YY">
+                        <span asp-validation-for="CardExpire" class="text-danger"></span>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label asp-for="CardCVV" class="form-label">CVV</label>
+                        <input asp-for="CardCVV" class="form-control" placeholder="123">
+                        <span asp-validation-for="CardCVV" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <a asp-page="/Flights/Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary w-50">Вернуться</a>
+                    <button type="submit" class="btn btn-primary w-50">Купить</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

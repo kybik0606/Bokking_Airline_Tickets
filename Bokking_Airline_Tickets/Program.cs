@@ -7,7 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Добавляем Razor Pages
 builder.Services.AddRazorPages();
+
+// Добавляем сессии
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -29,6 +39,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Важно: сначала сессии, затем авторизация
+app.UseSession();
 app.UseAuthorization();
 
 app.MapRazorPages();
